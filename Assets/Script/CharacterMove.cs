@@ -1,85 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    private float horizontal;
+    // Start is called before the first frame update
+    [SerializeField] private float SpeedMove = 5f;
+    [SerializeField] private float JumpPower = 15f;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private Transform groundCheck;
+    //[SerializeField] private Animator animator;
+    private bool isFacingRight = true;
 
-    public Rigidbody2D rb;
-    public SpriteRenderer characterSR;
-    //Animator animator;
-
-    //public float dashBoost = 2f;
-    //private float dashTime;
-    //public float DashTime;
-    //private bool once;
-
-    public Vector3 moveInput;
-
-    public GameObject damPopUp;
-    //public LosePanel losePanel;
-
-    private void Start()
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        //animator = GetComponentInChildren<Animator>();
+        //animator = GetComponent<Animator>();
     }
-
 
     // Update is called once per frame
     void Update()
     {
-        /// Part 2
-        // Movement
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-        transform.position += moveSpeed * Time.deltaTime * moveInput;
-        //
-
-        //animator.SetFloat("Speed", moveInput.sqrMagnitude);
-
-        //if (Input.GetKeyDown(KeyCode.Space) && dashTime <= 0)
+        horizontal = Input.GetAxis("Horizontal");
+        if (Input.GetKey(KeyCode.UpArrow) && IsInGround())
+        {
+            //animator.SetBool("isJump", true);
+            rb.velocity = new Vector2(rb.velocity.x, JumpPower);
+        }
+        //else
         //{
-        //    animator.SetBool("Roll", true);
-        //    moveSpeed += dashBoost;
-        //    dashTime = DashTime;
-        //    once = true;
+        //    animator.SetBool("isJump", false);
         //}
-
-        //if (dashTime <= 0 && once)
+        //if (horizontal != 0f)
         //{
-        //    animator.SetBool("Roll", false);
-        //    moveSpeed -= dashBoost;
-        //    once = false;
+        //    animator.SetBool("isRunning", true);
         //}
         //else
         //{
-        //    dashTime -= Time.deltaTime;
+        //    animator.SetBool("isRunning", false);
         //}
-
-        // Rotate Face
-        if (moveInput.x != 0)
-            if (moveInput.x < 0)
-                characterSR.transform.localScale = new Vector3(-1, 1, 0);
-            else
-                characterSR.transform.localScale = new Vector3(1, 1, 0);
+        Flip();
+    }
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(horizontal * SpeedMove, rb.velocity.y);
+    }
+    private bool IsInGround()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.6f, layerMask);
     }
 
-    //public void TakeDamageEffect(int damage)
+    //private void OnDrawGizmos()
     //{
-    //    if (damPopUp != null)
-    //    {
-    //        GameObject instance = Instantiate(damPopUp, transform.position
-    //                + new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), 0.5f, 0), Quaternion.identity);
-    //        instance.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
-    //        Animator animator = instance.GetComponentInChildren<Animator>();
-    //        animator.Play("red");
-    //    }
-    //    if (GetComponent<Health>().isDead)
-    //    {
-    //        losePanel.Show();
-    //    }
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(groundCheck.position, 0.6f);
     //}
+    private void Flip()
+    {
+        if(isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+    }
 }
