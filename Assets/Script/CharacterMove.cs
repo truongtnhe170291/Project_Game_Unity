@@ -1,69 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    private float horizontal;
-    // Start is called before the first frame update
-    [SerializeField] private float SpeedMove = 5f;
-    [SerializeField] private float JumpPower = 15f;
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private LayerMask layerMask;
-    [SerializeField] private Transform groundCheck;
-    //[SerializeField] private Animator animator;
-    private bool isFacingRight = true;
+    public float moveSpeed = 5f;
 
-    void Start()
+    public Rigidbody2D rb;
+    public SpriteRenderer characterSR;
+    //Animator animator;
+
+    //public float dashBoost = 2f;
+    //private float dashTime;
+    //public float DashTime;
+    //private bool once;
+
+    public Vector3 moveInput;
+
+    public GameObject damPopUp;
+    //public LosePanel losePanel;
+
+    private void Start()
     {
-        //animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        //animator = GetComponentInChildren<Animator>();
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        if (Input.GetKey(KeyCode.UpArrow) && IsInGround())
-        {
-            //animator.SetBool("isJump", true);
-            rb.velocity = new Vector2(rb.velocity.x, JumpPower);
-        }
+        /// Part 2
+        // Movement
+        moveInput.x = Input.GetAxisRaw("Horizontal");
+        moveInput.y = Input.GetAxisRaw("Vertical");
+        transform.position += moveSpeed * Time.deltaTime * moveInput;
+        //
+
+        //animator.SetFloat("Speed", moveInput.sqrMagnitude);
+
+        //if (Input.GetKeyDown(KeyCode.Space) && dashTime <= 0)
+        //{
+        //    animator.SetBool("Roll", true);
+        //    moveSpeed += dashBoost;
+        //    dashTime = DashTime;
+        //    once = true;
+        //}
+
+        //if (dashTime <= 0 && once)
+        //{
+        //    animator.SetBool("Roll", false);
+        //    moveSpeed -= dashBoost;
+        //    once = false;
+        //}
         //else
         //{
-        //    animator.SetBool("isJump", false);
+        //    dashTime -= Time.deltaTime;
         //}
-        //if (horizontal != 0f)
-        //{
-        //    animator.SetBool("isRunning", true);
-        //}
-        //else
-        //{
-        //    animator.SetBool("isRunning", false);
-        //}
-        Flip();
-    }
-    private void FixedUpdate()
-    {
-        rb.velocity = new Vector2(horizontal * SpeedMove, rb.velocity.y);
-    }
-    private bool IsInGround()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.6f, layerMask);
+
+        // Rotate Face
+        if (moveInput.x != 0)
+            if (moveInput.x < 0)
+                characterSR.transform.localScale = new Vector3(-1, 1, 0);
+            else
+                characterSR.transform.localScale = new Vector3(1, 1, 0);
     }
 
-    //private void OnDrawGizmos()
+    //public void TakeDamageEffect(int damage)
     //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(groundCheck.position, 0.6f);
+    //    if (damPopUp != null)
+    //    {
+    //        GameObject instance = Instantiate(damPopUp, transform.position
+    //                + new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), 0.5f, 0), Quaternion.identity);
+    //        instance.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
+    //        Animator animator = instance.GetComponentInChildren<Animator>();
+    //        animator.Play("red");
+    //    }
+    //    if (GetComponent<Health>().isDead)
+    //    {
+    //        losePanel.Show();
+    //    }
     //}
-    private void Flip()
-    {
-        if(isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
-    }
 }

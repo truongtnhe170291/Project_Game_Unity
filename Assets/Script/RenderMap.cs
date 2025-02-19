@@ -223,5 +223,6 @@ public class RenderMap : MonoBehaviour
         // Đặt nhân vật tại vị trí ngẫu nhiên
         Vector3 spawnPosition = tilePathMap.GetCellCenterWorld(new Vector3Int(playerPosition.x, playerPosition.y, 0));
         playerInstance = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
+        playerInstance.SetActive(true);
     }
 }
