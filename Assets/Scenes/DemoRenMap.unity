@@ -857,7 +857,7 @@ MonoBehaviour:
   tilePathMap: {fileID: 331931082}
   wallTile: {fileID: 11400000, guid: 936c0c8e0ef7b7745a6631185e2a83cd, type: 2}
   pathTile: {fileID: 11400000, guid: 6f9b43009d979de4ea50b353c87cfe8c, type: 2}
-  trapPrefab: {fileID: 880971920027120547, guid: 5d510ab8603944d4384146d67af015ed, type: 3}
+  trapPrefab: {fileID: 4460276072747483670, guid: 7fe748cbb83eff74099ca101ce201c28, type: 3}
   exitPrefab: {fileID: 5614689058816996111, guid: fda421aab6d11da4c9e5023bf7861ab0, type: 3}
   trapCount: 10
   playerPrefab: {fileID: 757777233}

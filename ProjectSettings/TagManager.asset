@@ -45,10 +45,10 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: 1
+  - name: Trap
     uniqueID: 3935982197
     locked: 0
-  - name: 2
+  - name: Player
     uniqueID: 2690250675
     locked: 0
   - name: 3
