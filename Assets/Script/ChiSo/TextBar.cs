@@ -10,7 +10,7 @@ public class TextBar : MonoBehaviour
     public Image fillBar;
     public TextMeshProUGUI valueText;
 
-    public void UpdateBar (int currentValue, int maxValue){
+    public void UpdateHealthBar (int currentValue, int maxValue){
         fillBar.fillAmount = (float)currentValue / (float)maxValue;
         valueText.text = currentValue.ToString() + " / " + maxValue.ToString();
     }
