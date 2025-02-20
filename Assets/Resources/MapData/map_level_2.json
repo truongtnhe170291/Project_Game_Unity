@@ -1,0 +1,14 @@
+{
+    "level": 2,
+    "width": 30,
+    "height": 30,
+    "steps": 700,
+    "trapCount": 5,
+    "enemyCounts": [
+        10,
+        10,
+        11,
+        11,
+        10
+    ]
+}

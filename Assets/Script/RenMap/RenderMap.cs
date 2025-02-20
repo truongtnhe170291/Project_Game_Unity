@@ -7,15 +7,15 @@ using Assets.Helper;
 
 public class RenderMap : MonoBehaviour
 {
-    public int width = 30; // Chiều rộng mê cung
-    public int height = 30; // Chiều cao mê cung
+    public int width; // Chiều rộng mê cung
+    public int height; // Chiều cao mê cung
     public Tilemap tilemap; // Tilemap để render mê cung
     public Tilemap tilePathMap; // Tilemap để render đường đi
     public TileBase wallTile; // Tile cho tường
     public TileBase pathTile; // Tile cho đường đi
     public GameObject trapPrefab; // Prefab cho bẫy (thay thế trapTile)
     public GameObject exitPrefab; // Prefab cho cổng ra (thay thế exitTile)
-    public int trapCount = 10; // Số lượng bẫy
+    public int trapCount; // Số lượng bẫy
     public GameObject playerPrefab; // Prefab của nhân vật
     public CinemachineVirtualCamera virtualCamera; // Tham chiếu đến Cinemachine Virtual Camera
     public GameObject mapBoundsPrefab; // Prefab chứa collider giới hạn map
@@ -24,19 +24,33 @@ public class RenderMap : MonoBehaviour
     private Vector2Int exitPosition; // Vị trí cổng ra
     private GameObject playerInstance; // Tham chiếu đến nhân vật sau khi được tạo ra
 
+
+    // Trong RenderMap.cs
     void Start()
     {
+        int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+
+        InitializeMap(currentLevel);
+
+        // Các phần còn lại giữ nguyên
+        CreateMapBounds();
+        // ... (các thành phần khác)
+    }
+
+    public void InitializeMap(int level)
+    {
+        // Load cấu hình map từ JSON dựa trên level
+        MapManager.Instance.LoadMapData(level);
+        width = MapManager.Instance.currentMapData.width;
+        height = MapManager.Instance.currentMapData.height;
+        trapCount = MapManager.Instance.currentMapData.trapCount;
+        // Khởi tạo các thành phần map
         maze = new int[width, height];
         GenerateMaze();
         AddTraps();
         PlaceExit();
         RenderMaze();
         SpawnPlayerRandomly();
-
-        // Tạo collider giới hạn map
-        CreateMapBounds();
-
-        // Gán virtualCamera.Follow sau khi nhân vật được tạo ra
         if (playerInstance != null && virtualCamera != null)
         {
             virtualCamera.Follow = playerInstance.transform;
@@ -45,8 +59,51 @@ public class RenderMap : MonoBehaviour
         {
             Debug.LogError("Player instance or virtual camera is missing!");
         }
-        DoorData.DoorId = 7;
     }
+   
+
+    public void ClearMap()
+    {
+        tilemap.ClearAllTiles();
+        tilePathMap.ClearAllTiles();
+
+        // Xóa traps và exit
+        var traps = GameObject.FindGameObjectsWithTag("Trap");
+        foreach (var trap in traps) Destroy(trap);
+
+        var exits = GameObject.FindGameObjectsWithTag("Exit");
+        foreach (var exit in exits) Destroy(exit);
+    }
+
+    public Vector2Int GetRandomPathPosition()
+    {
+        return FindRandomPathPosition();
+    }
+
+    public void ResetPlayer()
+    {
+        if (playerInstance != null)
+        {
+            Vector2Int newPos = FindRandomPathPosition();
+            playerInstance.transform.position = tilePathMap.GetCellCenterWorld((Vector3Int)newPos);
+        }
+    }
+    //void Start()
+    //{
+    //    maze = new int[width, height];
+    //    GenerateMaze();
+    //    AddTraps();
+    //    PlaceExit();
+    //    RenderMaze();
+    //    SpawnPlayerRandomly();
+
+    //    // Tạo collider giới hạn map
+    //    CreateMapBounds();
+
+    //    // Gán virtualCamera.Follow sau khi nhân vật được tạo ra
+        
+    //    DoorData.DoorId = 7;
+    //}
 
     void CreateMapBounds()
     {
@@ -196,7 +253,8 @@ public class RenderMap : MonoBehaviour
                 if (maze[x, y] == 2)
                 {
                     Vector3 trapPosition = tilePathMap.GetCellCenterWorld(new Vector3Int(x, y, 0));
-                    Instantiate(trapPrefab, trapPosition, Quaternion.identity);
+                    GameObject trapInstance = Instantiate(trapPrefab, trapPosition, Quaternion.identity);
+                    SetSortingLayerRecursive(trapInstance, "Trap");
                 }
 
                 // Đặt cổng ra (GameObject) cho các ô có giá trị 4
@@ -209,6 +267,21 @@ public class RenderMap : MonoBehaviour
         }
     }
 
+    void SetSortingLayerRecursive(GameObject parent, string layerName)
+    {
+        SpriteRenderer[] renderers = parent.GetComponentsInChildren<SpriteRenderer>(true);
+        foreach (SpriteRenderer renderer in renderers)
+        {
+            renderer.sortingLayerName = layerName;
+        }
+
+        // Nếu có các loại renderer khác (TilemapRenderer,...)
+        TilemapRenderer[] tileRenderers = parent.GetComponentsInChildren<TilemapRenderer>(true);
+        foreach (TilemapRenderer renderer in tileRenderers)
+        {
+            renderer.sortingLayerName = layerName;
+        }
+    }
     void SpawnPlayerRandomly()
     {
         // Tìm vị trí ngẫu nhiên trên đường đi để đặt nhân vật

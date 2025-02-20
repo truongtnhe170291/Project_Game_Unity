@@ -35,7 +35,8 @@ public class PopupController : MonoBehaviour
 
         popupPanel.SetActive(false);
         Time.timeScale = 1f;  // Tiếp tục game
-        FindObjectOfType<LevelManager>().LoadLevel(6);
+        int levelNumber = PlayerPrefs.GetInt("levelNumber");
+        GameManager.Instance.StartLevel(levelNumber);
     }
 
     // Hàm được gọi khi người chơi nhấn "Không"

@@ -87,6 +87,7 @@ public class LevelManager : MonoBehaviour
     private void OnLevelButtonClicked(int levelNumber)
     {
         Debug.Log($"Click level: {levelNumber}");
+        PlayerPrefs.SetInt("levelNumber", levelNumber);
         if (DoorData.StatusDoors[levelNumber-1] == 0)  // Biến bool kiểm tra trạng thái khóa của màn chơi
         {
             FindObjectOfType<NotificationManager>().ShowNotification();
@@ -100,11 +101,6 @@ public class LevelManager : MonoBehaviour
         //LoadLevel(levelNumber);
     }
 
-    public void LoadLevel(int levelNumber)
-    {
-        PlayerPrefs.SetString("NextScene", "DemoRenMap");
-        SceneManager.LoadScene("LoadScene");
-    }
 
     // Kiểm tra xem level có được mở khóa không
     private bool IsLevelUnlocked(int levelNumber)
