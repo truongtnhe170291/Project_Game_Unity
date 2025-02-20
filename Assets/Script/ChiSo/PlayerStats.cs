@@ -1,32 +1,88 @@
 using UnityEngine;
-using System;
-using TMPro;
+using System.IO;
 
-// Player Stats
 public class PlayerStats : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
-
     public int attack = 10;
-    public int defense = 5; 
+    public int defense = 5;
     public int moveSpeed = 5;
     public int experience = 0;
-    public int level = 1; // Cấp độ hiện tại
-    public int expToNextLevel = 100; // EXP cần để lên level 2
-
+    public int level = 1;
+    public int expToNextLevel = 100;
 
     public TextBar healthBar;
-    public TextBar levelText; // Thêm Text UI để hiển thị cấp độ
+    public TextBar levelText;
     public CharacterMove playerMove;
 
+    private string filePath;
 
     void Start()
     {
-        currentHealth = maxHealth;
-        healthBar.UpdateBar(currentHealth, maxHealth);
-        levelText.UpdateExpBar(experience, expToNextLevel, level);
-        // levelText.text = "Level: " + level;
+        // Định nghĩa đường dẫn file JSON trong thư mục ChiSo
+        string directoryPath = Path.Combine(Application.dataPath, "Script", "ChiSo");
+
+        // Kiểm tra nếu thư mục chưa tồn tại thì tạo mới
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        // Định nghĩa đường dẫn file JSON
+        filePath = Path.Combine(directoryPath, "playerData.json");
+
+        // Load dữ liệu từ file JSON khi game khởi động
+        LoadPlayerData();
+        UpdateUI();
+    }
+
+    void OnApplicationQuit()
+    {
+        SavePlayerData(); // Lưu chỉ số khi thoát game
+    }
+
+    public void SavePlayerData()
+    {
+        PlayerData data = new PlayerData
+        {
+            maxHealth = maxHealth,
+            currentHealth = currentHealth,
+            attack = attack,
+            defense = defense,
+            moveSpeed = moveSpeed,
+            experience = experience,
+            level = level,
+            expToNextLevel = expToNextLevel
+        };
+
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(filePath, json);
+        Debug.Log("🔥 Dữ liệu đã được lưu vào: " + filePath);
+    }
+
+    public void LoadPlayerData()
+    {
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+
+            maxHealth = data.maxHealth;
+            currentHealth = data.currentHealth;
+            attack = data.attack;
+            defense = data.defense;
+            moveSpeed = data.moveSpeed;
+            experience = data.experience;
+            level = data.level;
+            expToNextLevel = data.expToNextLevel;
+
+            Debug.Log("✅ Dữ liệu đã được tải thành công từ: " + filePath);
+        }
+        else
+        {
+            Debug.LogWarning("⚠ Không tìm thấy file JSON, sử dụng chỉ số mặc định.");
+        }
     }
 
     public void IncreaseStat(string stat, int value)
@@ -39,7 +95,7 @@ public class PlayerStats : MonoBehaviour
                 UpdateHealthBar();
                 break;
             case "heal":
-                currentHealth = Math.Min(currentHealth + value, maxHealth);
+                currentHealth = Mathf.Min(currentHealth + value, maxHealth);
                 UpdateHealthBar();
                 break;
             case "attack":
@@ -58,15 +114,15 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void UpdateHealthBar(){
-        healthBar.UpdateBar(currentHealth, maxHealth);
+    public void UpdateHealthBar()
+    {
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     public void GainExperience(int amount)
     {
-        experience += amount; // Cộng exp
+        experience += amount;
 
-        // Kiểm tra nếu đủ exp để lên cấp
         while (experience >= expToNextLevel)
         {
             LevelUp();
@@ -75,17 +131,15 @@ public class PlayerStats : MonoBehaviour
 
     public void LevelUp()
     {
-        experience -= expToNextLevel; // Giữ lại phần exp dư
-        level++; // Tăng cấp
-        expToNextLevel = CalculateExpForNextLevel(); // Cập nhật exp cần thiết cho cấp mới
-
-        // Debug.Log("Chúc mừng! Bạn đã lên cấp " + level);
+        experience -= expToNextLevel;
+        level++;
+        expToNextLevel = CalculateExpForNextLevel();
         UpdateExpUI();
     }
 
     public int CalculateExpForNextLevel()
     {
-        return (int)(expToNextLevel * 1.5f); // EXP tăng 1.5x mỗi level
+        return (int)(expToNextLevel * 1.5f);
     }
 
     public void UpdateExpUI()
@@ -96,5 +150,9 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-
+    void UpdateUI()
+    {
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        levelText.UpdateExpBar(experience, expToNextLevel, level);
+    }
 }
