@@ -1,6 +1,6 @@
 {
     "maxHealth": 170,
-    "currentHealth": 55,
+    "currentHealth": 50,
     "attack": 10,
     "defense": 5,
     "moveSpeed": 5,
