@@ -25,11 +25,6 @@ public class PlayerStats : MonoBehaviour
         UpdateUI();
     }
 
-    // void OnApplicationQuit()
-    // {
-    //     SavePlayerData(); // Lưu chỉ số khi thoát game
-    // }
-
     public void ConfigPathForPlayerData()
     {
         string directoryPath = Path.Combine(Application.dataPath, "Script", "ChiSo");
@@ -42,19 +37,19 @@ public class PlayerStats : MonoBehaviour
         filePath = Path.Combine(directoryPath, "PlayerData.json");
     }
 
-    public void SavePlayerData()
-    {
-        PlayerData data = new PlayerData
-        {
-            maxHealth = maxHealth,
-            attack = attack,
-            defense = defense,
-            moveSpeed = moveSpeed,
-        };
+    //public void SavePlayerData()
+    //{
+    //    PlayerData data = new PlayerData
+    //    {
+    //        maxHealth = maxHealth,
+    //        attack = attack,
+    //        defense = defense,
+    //        moveSpeed = moveSpeed,
+    //    };
 
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(filePath, json);
-    }
+    //    string json = JsonUtility.ToJson(data, true);
+    //    File.WriteAllText(filePath, json);
+    //}
 
     public void LoadPlayerData()
     {
@@ -84,7 +79,7 @@ public class PlayerStats : MonoBehaviour
                 currentHealth += value;
                 UpdateHealthBar();
                 break;
-            case "heal":
+            case "health":
                 currentHealth = Mathf.Min(currentHealth + value, maxHealth);
                 UpdateHealthBar();
                 break;
@@ -110,12 +105,15 @@ public class PlayerStats : MonoBehaviour
         {
             case "maxHealth":
                 maxHealth -= value;
-                currentHealth -= value;
+                currentHealth = Mathf.Max(0, currentHealth - value);
                 UpdateHealthBar();
+                CheckDeath();
                 break;
             case "health":
-                currentHealth = Mathf.Min(currentHealth - value, maxHealth);
+                int actualDamage = Mathf.Max(value - defense, 0); // Giáp giảm sát thương, không âm máu
+                currentHealth = Mathf.Max(0, currentHealth - actualDamage);
                 UpdateHealthBar();
+                CheckDeath();
                 break;
             case "attack":
                 attack -= value;
@@ -127,6 +125,14 @@ public class PlayerStats : MonoBehaviour
                 moveSpeed -= value;
                 playerMove.moveSpeed -= value;
                 break;
+        }
+    }
+
+    public void CheckDeath()
+    {
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
