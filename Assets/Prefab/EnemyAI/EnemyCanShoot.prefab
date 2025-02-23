@@ -96,9 +96,10 @@ GameObject:
   - component: {fileID: 132867088641361280}
   - component: {fileID: 5524253864184737179}
   - component: {fileID: 2781438733499909532}
+  - component: {fileID: -1950724133567784050}
   m_Layer: 0
   m_Name: EnemyCanShoot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,3 +205,17 @@ MonoBehaviour:
   timeBtwFire: 2
   seeker: {fileID: 5524253864184737179}
   characterSR: {fileID: 4246638168944740620}
+--- !u!114 &-1950724133567784050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902444125622550156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde87b3649065434ea612b7ff58314fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 30
+  lootPrefab: {fileID: 2360075861152060428, guid: 0a9b3b9938fe90d479b628ed12bcbfa0, type: 3}
