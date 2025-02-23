@@ -13,7 +13,7 @@ public class TriggerScript : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerPrefs.SetString("NextScene", nextSceneName);
-            DoorData.StatusDoors[DoorData.DoorId - 1] = 1;
+            //DoorData.StatusDoors[DoorData.DoorId - 1] = 1;
             SceneManager.LoadScene("LoadScene");
         }
     }

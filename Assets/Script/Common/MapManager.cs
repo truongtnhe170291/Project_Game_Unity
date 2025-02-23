@@ -40,7 +40,7 @@ public class MapManager : MonoBehaviour
             height = 30,
             steps = 1000,
             trapCount = 10,
-            enemyCounts = new int[] { 5, 3, 2 }
+            enemyCounts = new int[] { 10, 11, 10 }
         };
     }
 }
