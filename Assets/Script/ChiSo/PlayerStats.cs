@@ -20,46 +20,36 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        // Định nghĩa đường dẫn file JSON trong thư mục ChiSo
+        ConfigPathForPlayerData();
+        LoadPlayerData();
+        UpdateUI();
+    }
+
+    public void ConfigPathForPlayerData()
+    {
         string directoryPath = Path.Combine(Application.dataPath, "Script", "ChiSo");
 
-        // Kiểm tra nếu thư mục chưa tồn tại thì tạo mới
         if (!Directory.Exists(directoryPath))
         {
             Directory.CreateDirectory(directoryPath);
         }
 
-        // Định nghĩa đường dẫn file JSON
-        filePath = Path.Combine(directoryPath, "playerData.json");
-
-        // Load dữ liệu từ file JSON khi game khởi động
-        LoadPlayerData();
-        UpdateUI();
+        filePath = Path.Combine(directoryPath, "PlayerData.json");
     }
 
-    void OnApplicationQuit()
-    {
-        SavePlayerData(); // Lưu chỉ số khi thoát game
-    }
+    //public void SavePlayerData()
+    //{
+    //    PlayerData data = new PlayerData
+    //    {
+    //        maxHealth = maxHealth,
+    //        attack = attack,
+    //        defense = defense,
+    //        moveSpeed = moveSpeed,
+    //    };
 
-    public void SavePlayerData()
-    {
-        PlayerData data = new PlayerData
-        {
-            maxHealth = maxHealth,
-            currentHealth = currentHealth,
-            attack = attack,
-            defense = defense,
-            moveSpeed = moveSpeed,
-            experience = experience,
-            level = level,
-            expToNextLevel = expToNextLevel
-        };
-
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(filePath, json);
-        Debug.Log("🔥 Dữ liệu đã được lưu vào: " + filePath);
-    }
+    //    string json = JsonUtility.ToJson(data, true);
+    //    File.WriteAllText(filePath, json);
+    //}
 
     public void LoadPlayerData()
     {
@@ -69,19 +59,14 @@ public class PlayerStats : MonoBehaviour
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
 
             maxHealth = data.maxHealth;
-            currentHealth = data.currentHealth;
+            currentHealth = maxHealth;
             attack = data.attack;
             defense = data.defense;
             moveSpeed = data.moveSpeed;
-            experience = data.experience;
-            level = data.level;
-            expToNextLevel = data.expToNextLevel;
-
-            Debug.Log("✅ Dữ liệu đã được tải thành công từ: " + filePath);
         }
         else
         {
-            Debug.LogWarning("⚠ Không tìm thấy file JSON, sử dụng chỉ số mặc định.");
+            Debug.LogWarning("Error Load Player Data.");
         }
     }
 
@@ -94,7 +79,7 @@ public class PlayerStats : MonoBehaviour
                 currentHealth += value;
                 UpdateHealthBar();
                 break;
-            case "heal":
+            case "health":
                 currentHealth = Mathf.Min(currentHealth + value, maxHealth);
                 UpdateHealthBar();
                 break;
@@ -111,6 +96,43 @@ public class PlayerStats : MonoBehaviour
             case "exp":
                 GainExperience(value);
                 break;
+        }
+    }
+
+    public void ReduceStat(string stat, int value)
+    {
+        switch (stat)
+        {
+            case "maxHealth":
+                maxHealth -= value;
+                currentHealth = Mathf.Max(0, currentHealth - value);
+                UpdateHealthBar();
+                CheckDeath();
+                break;
+            case "health":
+                int actualDamage = Mathf.Max(value - defense, 0); // Giáp giảm sát thương, không âm máu
+                currentHealth = Mathf.Max(0, currentHealth - actualDamage);
+                UpdateHealthBar();
+                CheckDeath();
+                break;
+            case "attack":
+                attack -= value;
+                break;
+            case "defense":
+                defense -= value;
+                break;
+            case "speed":
+                moveSpeed -= value;
+                playerMove.moveSpeed -= value;
+                break;
+        }
+    }
+
+    public void CheckDeath()
+    {
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
