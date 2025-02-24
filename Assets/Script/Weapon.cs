@@ -29,9 +29,9 @@ public class Weapon : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
         transform.rotation = rotation;
         if (transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270)
-            transform.localScale = new Vector3(1, -1, 0);
+            transform.localScale = new Vector3(0.3275348f, -0.3517769f, 0);
         else
-            transform.localScale = new Vector3(1, 1, 0);
+            transform.localScale = new Vector3(0.3275348f, 0.3517769f, 0);
     }
     void FireBullet()
     {

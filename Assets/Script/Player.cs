@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
 {
     public float moveSpeed = 5f;
 
-    public Rigidbody2D rb;
     public SpriteRenderer characterSR;
     Animator animator;
 
@@ -18,13 +17,10 @@ public class Player : MonoBehaviour
     public float DashTime;
     private bool once;
 
-    public Vector3 moveInput;
-
-    public GameObject damPopUp;
+    Vector3 moveInput;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
     }
 
