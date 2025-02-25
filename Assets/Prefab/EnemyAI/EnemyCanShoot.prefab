@@ -152,9 +152,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.004195571, y: 0.003934741}
+  m_Offset: {x: -0.004195571, y: 0.00931263}
   serializedVersion: 2
-  m_Radius: 0.4506191
+  m_Radius: 0.4589362
 --- !u!114 &5524253864184737179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,4 +218,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
-  loots: []
+  loots:
+  - itemPrefab: {fileID: 2360075861152060428, guid: 0a9b3b9938fe90d479b628ed12bcbfa0, type: 3}
+    dropChance: 0.7
+  - itemPrefab: {fileID: 8193410510875309158, guid: c6d86ec8825b7674a9736d1cb0cd98a2, type: 3}
+    dropChance: 0.1
+  - itemPrefab: {fileID: 7478189960424040071, guid: d732c433f052247478d37fac6cedfe30, type: 3}
+    dropChance: 0.2
