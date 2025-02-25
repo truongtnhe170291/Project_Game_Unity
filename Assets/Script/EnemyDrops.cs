@@ -7,7 +7,7 @@ public class LootItem
     public float dropChance; // Xác suất rơi (tổng tất cả phải <= 1)
 }
 
-public class Enemy : MonoBehaviour
+public class EnemyDrops : MonoBehaviour
 {
     public int health = 30;
     public LootItem[] loots; // Danh sách vật phẩm có thể rơi

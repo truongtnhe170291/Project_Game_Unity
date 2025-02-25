@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Enemy")) // Kiểm tra va chạm với kẻ địch
         {
-            Enemy enemy = collision.GetComponent<Enemy>(); // Lấy script Enemy
+            EnemyDrops enemy = collision.GetComponent<EnemyDrops>(); // Lấy script Enemy
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);

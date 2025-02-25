@@ -26,8 +26,7 @@ public class NewEnemtAI : MonoBehaviour
     Coroutine moveCorountine;
     private void Start()
     {
-        InvokeRepeating("CalculatePath", 0f, 0.5f);
-        reachDestination = true;
+        InvokeRepeating("CalculatePath", 0f, 0.3f);
     }
 
     private void Update()
@@ -97,6 +96,7 @@ public class NewEnemtAI : MonoBehaviour
             }
             yield return null;
         }
+
     }
 
     Vector2 FindTarget()
@@ -104,12 +104,12 @@ public class NewEnemtAI : MonoBehaviour
         Vector3 playerPos = FindAnyObjectByType<Player>().transform.position;
         if (roaming == true)
         {
-            return (Vector2)playerPos + (Random.Range(10f, 20f) * new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized);
+            return (Vector2)playerPos + (Random.Range(10f, 50f) * new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized);
         }
 
         else
         {
             return playerPos;
-        }          
+        }
     }
 }
