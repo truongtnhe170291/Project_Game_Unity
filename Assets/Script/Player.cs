@@ -13,9 +13,9 @@ public class Player : MonoBehaviour
     Animator animator;
 
     public float dashBoost = 2f;
-    private float dashTime;
-    public float DashTime;
-    private bool once;
+    //private float dashTime;
+    //public float DashTime;
+    //private bool once;
 
     Vector3 moveInput;
 
@@ -35,26 +35,26 @@ public class Player : MonoBehaviour
         transform.position += moveSpeed * Time.deltaTime * moveInput;
         //
 
-        //animator.SetFloat("Speed", moveInput.sqrMagnitude);
+        animator.SetFloat("Speed", moveInput.sqrMagnitude);
 
-        if (Input.GetKeyDown(KeyCode.Space) && dashTime <= 0)
-        {
-            animator.SetBool("Roll", true);
-            moveSpeed += dashBoost;
-            dashTime = DashTime;
-            once = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && dashTime <= 0)
+        //{
+        //    animator.SetBool("Roll", true);
+        //    moveSpeed += dashBoost;
+        //    dashTime = DashTime;
+        //    once = true;
+        //}
 
-        if (dashTime <= 0 && once)
-        {
-            animator.SetBool("Roll", false);
-            moveSpeed -= dashBoost;
-            once = false;
-        }
-        else
-        {
-            dashTime -= Time.deltaTime;
-        }
+        //if (dashTime <= 0 && once)
+        //{
+        //    animator.SetBool("Roll", false);
+        //    moveSpeed -= dashBoost;
+        //    once = false;
+        //}
+        //else
+        //{
+        //    dashTime -= Time.deltaTime;
+        //}
 
         // Rotate Face
         if (moveInput.x != 0)

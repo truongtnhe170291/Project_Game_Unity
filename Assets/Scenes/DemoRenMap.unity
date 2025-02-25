@@ -909,6 +909,10 @@ MonoBehaviour:
   playerPrefab: {fileID: 3820111627950817923, guid: 77ec0c8b36fc83c41b3cab1d1e392035, type: 3}
   virtualCamera: {fileID: 2112385152}
   mapBoundsPrefab: {fileID: 768950200}
+  enemyPrefabs:
+  - {fileID: 2902444125622550156, guid: 099415f1d326f89459e90dacce93c9ef, type: 3}
+  - {fileID: 5006856785015297405, guid: 39834a66b15e7c54c8d388a79b84306e, type: 3}
+  aStarPrefab: {fileID: 6392822381960190382, guid: f29661b1a33863e468bff9e538a3efdc, type: 3}
 --- !u!1 &1611768034
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,6 @@ public class NewEnemtAI : MonoBehaviour
     bool reachDestination = false;
     public float moveSpeed;
     public float nextWPDistance;
-    public bool updateContinuesPath;
 
     // Shoot
     public bool isShootabte = false;
@@ -57,7 +56,7 @@ public class NewEnemtAI : MonoBehaviour
     void CalculatePath()
     {
         Vector2 target = FindTarget();
-        if (seeker.IsDone() && (reachDestination || updateContinuesPath))
+        if (seeker.IsDone())
         {
             seeker.StartPath(transform.position, target, OnPathComplete);
         }
@@ -79,7 +78,6 @@ public class NewEnemtAI : MonoBehaviour
     IEnumerator MoveToTargetCorountine()
     {
         int currentWP = 0;
-        reachDestination = false;
         while (currentWP < path.vectorPath.Count)
         {
             Vector2 direction = ((Vector2)path.vectorPath[currentWP] - (Vector2)transform.position).normalized;
@@ -99,7 +97,6 @@ public class NewEnemtAI : MonoBehaviour
             }
             yield return null;
         }
-        reachDestination = true;
     }
 
     Vector2 FindTarget()
@@ -107,7 +104,7 @@ public class NewEnemtAI : MonoBehaviour
         Vector3 playerPos = FindAnyObjectByType<Player>().transform.position;
         if (roaming == true)
         {
-            return (Vector2)playerPos + (Random.Range(10f, 50f) * new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized);
+            return (Vector2)playerPos + (Random.Range(10f, 20f) * new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized);
         }
 
         else
