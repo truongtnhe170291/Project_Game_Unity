@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         transform.position += moveSpeed * Time.deltaTime * moveInput;
         //
 
-        animator.SetFloat("Speed", moveInput.sqrMagnitude);
+        //animator.SetFloat("Speed", moveInput.sqrMagnitude);
 
         if (Input.GetKeyDown(KeyCode.Space) && dashTime <= 0)
         {

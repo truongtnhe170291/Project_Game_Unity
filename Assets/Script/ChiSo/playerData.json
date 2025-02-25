@@ -1,10 +1,6 @@
 {
-    "maxHealth": 170,
-    "currentHealth": 30,
+    "maxHealth": 123,
     "attack": 10,
-    "defense": 5,
-    "moveSpeed": 5,
-    "experience": 125,
-    "level": 4,
-    "expToNextLevel": 337
+    "defense": 0,
+    "moveSpeed": 5
 }

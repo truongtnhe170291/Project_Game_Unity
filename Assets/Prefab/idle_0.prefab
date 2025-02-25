@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4096597407892040098}
   - component: {fileID: 4927190259506094968}
   - component: {fileID: 2231020167289889722}
+  - component: {fileID: -9088220350922415484}
   m_Layer: 0
   m_Name: idle_0
   m_TagString: Player
@@ -157,7 +158,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432486584689086148}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1016070afd2d8d143aa39aa7e28b0acd, type: 3}
   m_Name: 
@@ -181,3 +182,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashSpeed: 0.2
   lowHealthThreshold: 0.3
+--- !u!114 &-9088220350922415484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432486584689086148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf0e1a76c1d84a42a17434ac1e63336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  rb: {fileID: 0}
+  characterSR: {fileID: 0}
+  dashBoost: 2
+  DashTime: 0
+  moveInput: {x: 0, y: 0, z: 0}
+  damPopUp: {fileID: 0}

@@ -19,13 +19,17 @@ public class RenderMap : MonoBehaviour
     public GameObject playerPrefab; // Prefab của nhân vật
     public CinemachineVirtualCamera virtualCamera; // Tham chiếu đến Cinemachine Virtual Camera
     public GameObject mapBoundsPrefab; // Prefab chứa collider giới hạn map
+    
+    public GameObject[] enemyPrefabs;
 
     private int[,] maze;
     private Vector2Int exitPosition; // Vị trí cổng ra
     private GameObject playerInstance; // Tham chiếu đến nhân vật sau khi được tạo ra
 
+    [Header("Pathfinding")]
+    public AStarGridGenerator aStarPrefab;
+    private AStarGridGenerator activeAStarGrid;
 
-    // Trong RenderMap.cs
     void Start()
     {
         int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
@@ -34,6 +38,8 @@ public class RenderMap : MonoBehaviour
 
         // Các phần còn lại giữ nguyên
         CreateMapBounds();
+        CreateAStarGrid();
+
         // ... (các thành phần khác)
     }
 
@@ -51,6 +57,7 @@ public class RenderMap : MonoBehaviour
         PlaceExit();
         RenderMaze();
         SpawnPlayerRandomly();
+        SpawnEnemies();
         if (playerInstance != null && virtualCamera != null)
         {
             virtualCamera.Follow = playerInstance.transform;
@@ -88,22 +95,6 @@ public class RenderMap : MonoBehaviour
             playerInstance.transform.position = tilePathMap.GetCellCenterWorld((Vector3Int)newPos);
         }
     }
-    //void Start()
-    //{
-    //    maze = new int[width, height];
-    //    GenerateMaze();
-    //    AddTraps();
-    //    PlaceExit();
-    //    RenderMaze();
-    //    SpawnPlayerRandomly();
-
-    //    // Tạo collider giới hạn map
-    //    CreateMapBounds();
-
-    //    // Gán virtualCamera.Follow sau khi nhân vật được tạo ra
-        
-    //    DoorData.DoorId = 7;
-    //}
 
     void CreateMapBounds()
     {
@@ -298,4 +289,112 @@ public class RenderMap : MonoBehaviour
         playerInstance = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
         playerInstance.SetActive(true);
     }
+
+
+
+    // SPAWN ENEMIES
+    void SpawnEnemies()
+    {
+        // Lấy dữ liệu từ MapManager
+        int[] enemyCounts = MapManager.Instance.currentMapData.enemyCounts;
+
+        // Kiểm tra dữ liệu hợp lệ
+        if (enemyCounts == null || enemyCounts.Length != enemyPrefabs.Length)
+        {
+            Debug.LogError("Enemy configuration mismatch!");
+            return;
+        }
+
+        // Spawn từng loại quái
+        for (int enemyType = 0; enemyType < enemyCounts.Length; enemyType++)
+        {
+            // Spawn số lượng quái theo config
+            for (int i = 0; i < enemyCounts[enemyType]; i++)
+            {
+                SpawnSingleEnemy(enemyType);
+            }
+        }
+    }
+    void SpawnSingleEnemy(int enemyType)
+    {
+        // Kiểm tra prefab hợp lệ
+        if (enemyType >= enemyPrefabs.Length || enemyPrefabs[enemyType] == null)
+        {
+            Debug.LogError($"Missing prefab for enemy type {enemyType}");
+            return;
+        }
+
+        // Tìm vị trí spawn hợp lệ
+        Vector2Int spawnPosition = GetValidEnemySpawnPosition();
+        Vector3 worldPosition = tilePathMap.GetCellCenterWorld((Vector3Int)spawnPosition);
+
+        // Tạo quái vật
+        GameObject enemy = Instantiate(enemyPrefabs[enemyType], worldPosition, Quaternion.identity);
+
+        // Cấu hình thêm nếu cần
+        // enemy.transform.parent = transform; // Đặt vào cùng parent
+    }
+
+    Vector2Int GetValidEnemySpawnPosition()
+    {
+        Vector2Int playerPosition = GetPlayerGridPosition();
+        Vector2Int spawnPosition;
+        bool isValidPosition;
+        int attempts = 0;
+        const int maxAttempts = 100;
+
+        do
+        {
+            spawnPosition = FindRandomPathPosition();
+
+            // Kiểm tra khoảng cách với player
+            float distanceToPlayer = Vector2Int.Distance(spawnPosition, playerPosition);
+
+            // Kiểm tra vị trí không có vật cản
+            isValidPosition = distanceToPlayer > 5f && // Cách player ít nhất 5 ô
+                             maze[spawnPosition.x, spawnPosition.y] == 0 && // Trên đường đi
+                             !IsPositionOccupied(spawnPosition); // Không có vật thể khác
+
+            attempts++;
+        } while (!isValidPosition && attempts < maxAttempts);
+
+        return isValidPosition ? spawnPosition : Vector2Int.zero;
+    }
+
+    Vector2Int GetPlayerGridPosition()
+    {
+        if (playerInstance == null) return Vector2Int.zero;
+
+        Vector3 playerWorldPos = playerInstance.transform.position;
+        return (Vector2Int)tilePathMap.WorldToCell(playerWorldPos);
+    }
+
+    bool IsPositionOccupied(Vector2Int gridPosition)
+    {
+        // Kiểm tra collision theo layer
+        Vector3 worldPos = tilePathMap.GetCellCenterWorld((Vector3Int)gridPosition);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(worldPos, 0.4f);
+
+        foreach (Collider2D col in colliders)
+        {
+            if (col.CompareTag("Player") ||
+                col.CompareTag("Enemy") ||
+                col.CompareTag("Trap"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void CreateAStarGrid()
+{
+    if (activeAStarGrid != null)
+    {
+        Destroy(activeAStarGrid.gameObject);
+    }
+    
+    activeAStarGrid = Instantiate(aStarPrefab, transform);
+    activeAStarGrid.InitializeGrid(maze, width, height);
+}
 }
