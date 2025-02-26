@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 5524253864184737179}
   - component: {fileID: 2781438733499909532}
   - component: {fileID: -1950724133567784050}
+  - component: {fileID: -3124149765146503885}
   m_Layer: 0
   m_Name: EnemyCanShoot
   m_TagString: Enemy
@@ -267,3 +268,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loots: []
+--- !u!114 &-3124149765146503885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902444125622550156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde88d8c7d115c142955e63b19047b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 30
+  currentHealth: 0
+  attack: 10
+  defense: 0
+  moveSpeed: 4
