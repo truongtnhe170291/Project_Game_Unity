@@ -20,6 +20,15 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
+        healthBar = GameObject.Find("HealthBar").GetComponent<TextBar>();
+
+        // Tìm ExpBar bằng tên
+        levelText = GameObject.Find("ExpBar").GetComponent<TextBar>();
+
+        if (healthBar == null || levelText == null)
+        {
+            Debug.LogWarning("Không tìm thấy HealthBar hoặc ExpBar.");
+        }
         ConfigPathForPlayerData();
         LoadPlayerData();
         UpdateUI();

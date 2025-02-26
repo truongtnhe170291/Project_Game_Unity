@@ -118,7 +118,8 @@ GameObject:
   - component: {fileID: 6715621790821164054}
   - component: {fileID: 2218157606225949174}
   - component: {fileID: 7378263388665821115}
-  - component: {fileID: 3146442476209120407}
+  - component: {fileID: -3792235347473585101}
+  - component: {fileID: 6611131789415260308}
   m_Layer: 0
   m_Name: EnemyNoneShoot
   m_TagString: Enemy
@@ -171,7 +172,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.010419905, y: 0.008468151}
@@ -226,7 +227,7 @@ MonoBehaviour:
   timeBtwFire: 0
   seeker: {fileID: 2218157606225949174}
   characterSR: {fileID: 6456445918959385296}
---- !u!114 &3146442476209120407
+--- !u!114 &-3792235347473585101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,12 +236,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 5006856785015297405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde87b3649065434ea612b7ff58314fb, type: 3}
+  m_Script: {fileID: 11500000, guid: dde88d8c7d115c142955e63b19047b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  loots:
-  - itemPrefab: {fileID: 8193410510875309158, guid: c6d86ec8825b7674a9736d1cb0cd98a2, type: 3}
-    dropChance: 0.4
-  - itemPrefab: {fileID: 2360075861152060428, guid: 0a9b3b9938fe90d479b628ed12bcbfa0, type: 3}
-    dropChance: 0.6
+  maxHealth: 30
+  currentHealth: 0
+  attack: 10
+  defense: 0
+  moveSpeed: 4
+--- !u!114 &6611131789415260308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5006856785015297405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23cb17e06b850f478718a0183b65e33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reductions:
+  - statType: health
+    statValue: 50
+  boosts: []
+  nonDestructive: 0
+  interval: 2

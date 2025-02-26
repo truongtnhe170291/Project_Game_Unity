@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 261527709700553398}
   - component: {fileID: 2082083187214622662}
   - component: {fileID: -511483556646760371}
-  - component: {fileID: -263153828480470398}
-  - component: {fileID: 5579554474191346663}
+  - component: {fileID: 8752008105482012458}
   m_Layer: 0
   m_Name: bullet
   m_TagString: Untagged
@@ -164,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LifeTime: 2
---- !u!114 &-263153828480470398
+--- !u!114 &8752008105482012458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,22 +172,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5498712203702726044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3081437b29a40b748afa5e6e96a146e9, type: 3}
+  m_Script: {fileID: 11500000, guid: ba113fb6f243d7e488c56d9b35ce41f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boosts:
-  - statType: heal
-    boostValue: 10
---- !u!114 &5579554474191346663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5498712203702726044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c041532bc6fe04b8b0a7b4727a0332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
+  reductions:
+  - statType: health
+    statValue: 10
+  boosts: []
+  nonDestructive: 0
+  interval: 2
