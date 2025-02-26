@@ -15,6 +15,10 @@ public class LevelManager : MonoBehaviour
         //public Image buttonImage;       // Image của button (để thay đổi locked/unlocked)
     }
 
+    public Sprite highlightedSprite; 
+    public Sprite pressedSprite; 
+    public Sprite selectedSprite;
+
     [Header("Level Buttons")]
     [SerializeField] private LevelButton[] levelButtons;  // Array chứa các button level
 
@@ -46,40 +50,45 @@ public class LevelManager : MonoBehaviour
             // Load trạng thái mở khóa của level
             bool isUnlocked = IsLevelUnlocked(levelIndex);
 
-            // Load số sao đã đạt được
-            //int stars = GetLevelStars(levelIndex);
-            int stars = 3;
+            int stars = DoorData.StatusDoors[levelIndex-1];
 
             // Cập nhật visual của button
-            UpdateButtonVisual(levelBtn, isUnlocked, stars);
+            UpdateButtonVisual(levelBtn, isUnlocked, stars, levelIndex);
 
             // Thêm listener cho button
             levelBtn.button.onClick.AddListener(() => OnLevelButtonClicked(levelIndex));
         }
     }
 
-    private void UpdateButtonVisual(LevelButton levelBtn, bool isUnlocked, int stars)
+    private void UpdateButtonVisual(LevelButton levelBtn, bool isUnlocked, int stars, int level)
     {
-        // Cập nhật sprite của button
-        //if (levelBtn.buttonImage != null)
-        //{
-        //    levelBtn.buttonImage.sprite = isUnlocked ? unlockedButtonSprite : lockedButtonSprite;
-        //}
-
-        // Cập nhật interactable
-        //levelBtn.button.interactable = isUnlocked;
         if(isUnlocked == false)
         {
             levelBtn.button.image.sprite = lockedButtonSprite;
             levelBtn.levelText.text = "";
             levelBtn.starsImage.enabled = false;
         }
-        else
-
-        // Cập nhật hiển thị sao
-        if (levelBtn.starsImage != null && starSprites != null && stars >= 0 && stars < starSprites.Length)
+        else if (stars == 0)
         {
-            levelBtn.starsImage.sprite = starSprites[stars];
+            levelBtn.button.transition = Selectable.Transition.SpriteSwap;
+
+            SpriteState spriteState = new SpriteState();
+            spriteState.highlightedSprite = highlightedSprite;
+            spriteState.pressedSprite = pressedSprite;
+            spriteState.selectedSprite = selectedSprite;
+            levelBtn.button.spriteState = spriteState;
+
+
+            levelBtn.button.image.sprite = unlockedButtonSprite;
+            levelBtn.starsImage.sprite = starSprites[0];
+
+            levelBtn.levelText.text = $"{level}";
+            levelBtn.starsImage.enabled = false;
+        }
+
+        else
+        {
+            levelBtn.starsImage.sprite = starSprites[stars-1];
             levelBtn.starsImage.enabled = isUnlocked; // Ẩn sao nếu level bị khóa
         }
     }
@@ -88,27 +97,22 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log($"Click level: {levelNumber}");
         PlayerPrefs.SetInt("levelNumber", levelNumber);
-        if (DoorData.StatusDoors[levelNumber-1] == 0)  // Biến bool kiểm tra trạng thái khóa của màn chơi
+        if (DoorData.StatusDoors[levelNumber-1] != -1)  // Biến bool kiểm tra trạng thái khóa của màn chơi
         {
-            FindObjectOfType<NotificationManager>().ShowNotification();
+            FindObjectOfType<PopupController>().ShowPopup();
         }
         else
         {
-            FindObjectOfType<PopupController>().ShowPopup();
-            Debug.Log($"Loading level {levelNumber}");
+            FindObjectOfType<NotificationManager>().ShowNotification();
         }
-        
-        //LoadLevel(levelNumber);
     }
 
 
-    // Kiểm tra xem level có được mở khóa không
     private bool IsLevelUnlocked(int levelNumber)
     {
-        // Level 1 luôn được mở khóa
-        if (DoorData.StatusDoors[levelNumber-1] == 1) return true;
+        if (DoorData.StatusDoors[levelNumber-1] == -1) return false;
 
-        return false;
+        return true;
     }
 
     // Lấy số sao đã đạt được của level
@@ -118,26 +122,26 @@ public class LevelManager : MonoBehaviour
     }
 
     // Gọi hàm này khi người chơi hoàn thành level
-    public void OnLevelComplete(int levelNumber, int starsEarned)
-    {
-        // Lưu số sao đạt được
-        PlayerPrefs.SetInt($"Level_{levelNumber}_Stars", starsEarned);
+    //public void OnLevelComplete(int levelNumber, int starsEarned)
+    //{
+    //    // Lưu số sao đạt được
+    //    PlayerPrefs.SetInt($"Level_{levelNumber}_Stars", starsEarned);
 
-        // Mở khóa level tiếp theo
-        if (levelNumber < levelButtons.Length)
-        {
-            PlayerPrefs.SetInt($"Level_{levelNumber + 1}_Unlocked", 1);
-        }
+    //    // Mở khóa level tiếp theo
+    //    if (levelNumber < levelButtons.Length)
+    //    {
+    //        PlayerPrefs.SetInt($"Level_{levelNumber + 1}_Unlocked", 1);
+    //    }
 
-        PlayerPrefs.Save();
+    //    PlayerPrefs.Save();
 
-        // Cập nhật lại visual của các button
-        int nextLevel = levelNumber + 1;
-        if (nextLevel <= levelButtons.Length)
-        {
-            UpdateButtonVisual(levelButtons[nextLevel - 1], true, 0);
-        }
-    }
+    //    // Cập nhật lại visual của các button
+    //    int nextLevel = levelNumber + 1;
+    //    if (nextLevel <= levelButtons.Length)
+    //    {
+    //        UpdateButtonVisual(levelButtons[nextLevel - 1], true, 0);
+    //    }
+    //}
 
     // Reset tất cả tiến độ (dùng cho testing)
     public void ResetAllProgress()

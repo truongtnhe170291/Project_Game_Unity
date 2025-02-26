@@ -196,7 +196,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 17d59c74c059ca84293437fda6a96176, type: 3}
+    m_Font: {fileID: 12800000, guid: 546fb5147c21bbb4a951037f228d4200, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -667,7 +667,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 17d59c74c059ca84293437fda6a96176, type: 3}
+    m_Font: {fileID: 12800000, guid: 546fb5147c21bbb4a951037f228d4200, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -1272,9 +1272,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 5eb4593c5eca7004997772b80affcf86, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: ff6825cee09a51a4fbb7f1ee99f5b09e, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: 5eb4593c5eca7004997772b80affcf86, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1307,8 +1307,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b9fcd50da7785f243ade89118753c516, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5bc84afa6b3f2004c8ba5355eaa20a6a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1671,7 +1671,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 17d59c74c059ca84293437fda6a96176, type: 3}
+    m_Font: {fileID: 12800000, guid: 546fb5147c21bbb4a951037f228d4200, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -1899,7 +1899,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c3de95d9ddb41cf48aa61aba825cc315, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e6ebfe68d2f4ef7408907e7247fff8fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2515,7 +2515,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 17d59c74c059ca84293437fda6a96176, type: 3}
+    m_Font: {fileID: 12800000, guid: 546fb5147c21bbb4a951037f228d4200, type: 3}
     m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
@@ -2610,7 +2610,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 17d59c74c059ca84293437fda6a96176, type: 3}
+    m_Font: {fileID: 12800000, guid: 546fb5147c21bbb4a951037f228d4200, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -2825,6 +2825,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 035488d6d80ca184ab8445be10319fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedSprite: {fileID: 21300000, guid: 0d9fcf28504d0284a80b2feb008a6263, type: 3}
+  pressedSprite: {fileID: 21300000, guid: 0dc1cc9b8d8c48641a9e668162724381, type: 3}
+  selectedSprite: {fileID: 21300000, guid: 0d9fcf28504d0284a80b2feb008a6263, type: 3}
   levelButtons:
   - button: {fileID: 1649537004}
     levelText: {fileID: 1202162194}
@@ -2853,12 +2856,12 @@ MonoBehaviour:
   - button: {fileID: 288226395}
     levelText: {fileID: 1928621316}
     starsImage: {fileID: 623828858}
-  lockedButtonSprite: {fileID: 21300000, guid: 9c734a62742ae154c962bf66554395dc, type: 3}
-  unlockedButtonSprite: {fileID: 21300000, guid: b9fcd50da7785f243ade89118753c516, type: 3}
+  lockedButtonSprite: {fileID: 21300000, guid: 540ca2774907cc04d8fb1a2eab4f613f, type: 3}
+  unlockedButtonSprite: {fileID: 21300000, guid: 1283560dce051d64fb55ec84e75b62a2, type: 3}
   starSprites:
-  - {fileID: 21300000, guid: 7447508782dc7b44bb35c965ba01d11b, type: 3}
-  - {fileID: 21300000, guid: c3de95d9ddb41cf48aa61aba825cc315, type: 3}
-  - {fileID: 21300000, guid: 75f5c286c299d534ba06bb482172720f, type: 3}
+  - {fileID: 21300000, guid: 8256953ba43a1aa4bae2ca511d5258ec, type: 3}
+  - {fileID: 21300000, guid: a853fa175aa9e9647a63bce61dafa1f0, type: 3}
+  - {fileID: 21300000, guid: e6ebfe68d2f4ef7408907e7247fff8fc, type: 3}
 --- !u!1 &1202162191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3539,7 +3542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1418896933
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4660,7 +4663,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 17d59c74c059ca84293437fda6a96176, type: 3}
+    m_Font: {fileID: 12800000, guid: 546fb5147c21bbb4a951037f228d4200, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -4874,7 +4877,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 17d59c74c059ca84293437fda6a96176, type: 3}
+    m_Font: {fileID: 12800000, guid: 546fb5147c21bbb4a951037f228d4200, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
@@ -5044,7 +5047,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 17d59c74c059ca84293437fda6a96176, type: 3}
+    m_Font: {fileID: 12800000, guid: 546fb5147c21bbb4a951037f228d4200, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DemoRenMap.unity
     guid: 701478499f0a21e49b3b62302e9228f6
+  - enabled: 1
+    path: Assets/Scenes/Welcome Scene.unity
+    guid: 310a3dc84a0ec224ba50796d7e114b52
   m_configObjects: {}

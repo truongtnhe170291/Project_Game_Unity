@@ -16,7 +16,7 @@ public class LoadScene : MonoBehaviour
     private IEnumerator LoadNextSceneAsync()
     {
         string nextSceneName = PlayerPrefs.GetString("NextScene");
-
+        Debug.Log($"Load Scene: {nextSceneName}");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
 
         // Không cho phép scene tự động chuyển khi tải xong
@@ -36,6 +36,7 @@ public class LoadScene : MonoBehaviour
             if (asyncLoad.progress >= 0.9f)
             {
                 asyncLoad.allowSceneActivation = true;
+                PlayerPrefs.DeleteKey("NextScene");
             }
 
             yield return null;
