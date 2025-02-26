@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 132867088641361280}
   - component: {fileID: 5524253864184737179}
   - component: {fileID: 2781438733499909532}
-  - component: {fileID: -1950724133567784050}
+  - component: {fileID: -6258492554287085859}
   m_Layer: 0
   m_Name: EnemyCanShoot
   m_TagString: Enemy
@@ -226,7 +226,7 @@ MonoBehaviour:
   timeBtwFire: 2
   seeker: {fileID: 5524253864184737179}
   characterSR: {fileID: 4246638168944740620}
---- !u!114 &-1950724133567784050
+--- !u!114 &-6258492554287085859
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,14 +235,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2902444125622550156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde87b3649065434ea612b7ff58314fb, type: 3}
+  m_Script: {fileID: 11500000, guid: dde88d8c7d115c142955e63b19047b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  loots:
-  - itemPrefab: {fileID: 2360075861152060428, guid: 0a9b3b9938fe90d479b628ed12bcbfa0, type: 3}
-    dropChance: 0.7
-  - itemPrefab: {fileID: 8193410510875309158, guid: c6d86ec8825b7674a9736d1cb0cd98a2, type: 3}
-    dropChance: 0.1
-  - itemPrefab: {fileID: 7478189960424040071, guid: d732c433f052247478d37fac6cedfe30, type: 3}
-    dropChance: 0.2
+  maxHealth: 30
+  currentHealth: 0
+  attack: 10
+  defense: 0
+  moveSpeed: 4

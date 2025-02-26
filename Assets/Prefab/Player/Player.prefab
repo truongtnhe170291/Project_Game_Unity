@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 5378313178646893978}
   - component: {fileID: 4766293800225256596}
   - component: {fileID: 7430945923443401608}
+  - component: {fileID: -7030357250582648095}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -323,6 +324,29 @@ CapsuleCollider2D:
   m_Offset: {x: -0.73413193, y: -4.8348165}
   m_Size: {x: 4.5550323, y: 6.443279}
   m_Direction: 0
+--- !u!114 &-7030357250582648095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820111627950817923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ed6aa2fd2d007469afcc3af1c3f899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  attack: 10
+  defense: 5
+  moveSpeed: 5
+  experience: 0
+  level: 1
+  expToNextLevel: 100
+  healthBar: {fileID: 7449743342826122199, guid: d22f483e056882e43b10daa7c59b48a8, type: 3}
+  levelText: {fileID: 4934140660705962334, guid: 59a1123c3405bf4498c36075a150b8d8, type: 3}
+  playerMove: {fileID: 0}
 --- !u!1 &5873384412319820357
 GameObject:
   m_ObjectHideFlags: 0
