@@ -1,15 +1,10 @@
 using UnityEngine;
-
-using System.Collections; 
-using System.Collections.Generic; 
-using Unity. VisualScripting; 
 public class Weapon : MonoBehaviour
 {
     public GameObject bullet;
     public Transform firePos;
     public float TimeBtwFire = 0.2f;
     public GameObject muzzle;
-    public GameObject fireEffect;
     public float bulletForce; 
     private float timeBtwFire;
     void Update()

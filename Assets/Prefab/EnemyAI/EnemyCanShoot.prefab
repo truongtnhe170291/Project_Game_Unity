@@ -115,6 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4600118471415026989}
+  - component: {fileID: 1487646935007056410}
   - component: {fileID: 132867088641361280}
   - component: {fileID: 5524253864184737179}
   - component: {fileID: 2781438733499909532}
@@ -142,6 +143,33 @@ Transform:
   - {fileID: 8196536106254967591}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1487646935007056410
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902444125622550156}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!58 &132867088641361280
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -238,11 +266,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde87b3649065434ea612b7ff58314fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  loots:
-  - itemPrefab: {fileID: 2360075861152060428, guid: 0a9b3b9938fe90d479b628ed12bcbfa0, type: 3}
-    dropChance: 0.7
-  - itemPrefab: {fileID: 8193410510875309158, guid: c6d86ec8825b7674a9736d1cb0cd98a2, type: 3}
-    dropChance: 0.1
-  - itemPrefab: {fileID: 7478189960424040071, guid: d732c433f052247478d37fac6cedfe30, type: 3}
-    dropChance: 0.2
+  loots: []

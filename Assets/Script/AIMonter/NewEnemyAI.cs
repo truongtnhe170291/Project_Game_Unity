@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
@@ -7,7 +7,6 @@ using Unity.VisualScripting;
 public class NewEnemtAI : MonoBehaviour
 {
     public bool roaming = true;
-    bool reachDestination = false;
     public float moveSpeed;
     public float nextWPDistance;
 
@@ -36,7 +35,7 @@ public class NewEnemtAI : MonoBehaviour
         if (fireCooldown <= 0)
         {
             fireCooldown = timeBtwFire;
-            if (bullet != null)
+            if (bullet != null && isShootabte)
             {
                 EnemyFireBullet();
             }
@@ -104,9 +103,14 @@ public class NewEnemtAI : MonoBehaviour
         Vector3 playerPos = FindAnyObjectByType<Player>().transform.position;
         if (roaming == true)
         {
-            return (Vector2)playerPos + (Random.Range(10f, 50f) * new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized);
-        }
+            Vector2 randomDirection;
+            do
+            {
+                randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            } while (randomDirection == Vector2.zero); // Đảm bảo không phải (0,0)
 
+            return (Vector2)playerPos + (Random.Range(5f, 10f) * randomDirection.normalized);
+        }
         else
         {
             return playerPos;

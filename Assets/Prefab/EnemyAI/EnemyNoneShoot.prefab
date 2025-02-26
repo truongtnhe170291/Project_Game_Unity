@@ -115,6 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5749084208907613541}
+  - component: {fileID: -7326690934104767851}
   - component: {fileID: 6715621790821164054}
   - component: {fileID: 2218157606225949174}
   - component: {fileID: 7378263388665821115}
@@ -142,6 +143,33 @@ Transform:
   - {fileID: 769364489574790636}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &-7326690934104767851
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5006856785015297405}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!58 &6715621790821164054
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -220,7 +248,7 @@ MonoBehaviour:
   roaming: 0
   moveSpeed: 5
   nextWPDistance: 0.2
-  isShootabte: 0
+  isShootabte: 1
   bullet: {fileID: 0}
   buttetSpeed: 0
   timeBtwFire: 0
@@ -238,9 +266,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde87b3649065434ea612b7ff58314fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  loots:
-  - itemPrefab: {fileID: 8193410510875309158, guid: c6d86ec8825b7674a9736d1cb0cd98a2, type: 3}
-    dropChance: 0.4
-  - itemPrefab: {fileID: 2360075861152060428, guid: 0a9b3b9938fe90d479b628ed12bcbfa0, type: 3}
-    dropChance: 0.6
+  loots: []

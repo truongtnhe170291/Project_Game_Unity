@@ -9,19 +9,9 @@ public class LootItem
 
 public class EnemyDrops : MonoBehaviour
 {
-    public int health = 30;
     public LootItem[] loots; // Danh sách vật phẩm có thể rơi
 
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
-    void Die()
+    public void Die()
     {
         DropLoot();
         Destroy(gameObject);
@@ -43,5 +33,4 @@ public class EnemyDrops : MonoBehaviour
             }
         }
     }
-
 }
