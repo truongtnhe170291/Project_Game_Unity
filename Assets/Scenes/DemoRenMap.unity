@@ -2699,7 +2699,11 @@ MonoBehaviour:
   trapPrefab: {fileID: 4460276072747483670, guid: 7fe748cbb83eff74099ca101ce201c28, type: 3}
   exitPrefab: {fileID: 5614689058816996111, guid: fda421aab6d11da4c9e5023bf7861ab0, type: 3}
   trapCount: 10
-  playerPrefab: {fileID: 3820111627950817923, guid: 77ec0c8b36fc83c41b3cab1d1e392035, type: 3}
+  playerPrefabs:
+  - {fileID: 3820111627950817923, guid: 77ec0c8b36fc83c41b3cab1d1e392035, type: 3}
+  - {fileID: 3820111627950817923, guid: dd6c7af969370524bbf08c294a254aee, type: 3}
+  - {fileID: 3820111627950817923, guid: d3ca105d67047984a9faf458a8072d38, type: 3}
+  - {fileID: 3820111627950817923, guid: c2c86995b4ab0de48a89b0c7cb739fe0, type: 3}
   virtualCamera: {fileID: 2112385152}
   mapBoundsPrefab: {fileID: 768950200}
   enemyPrefabs:
