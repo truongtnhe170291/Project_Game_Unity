@@ -16,8 +16,9 @@ public class RenderMap : MonoBehaviour
 	public GameObject trapPrefab; // Prefab cho bẫy (thay thế trapTile)
 	public GameObject exitPrefab; // Prefab cho cổng ra (thay thế exitTile)
 	public int trapCount; // Số lượng bẫy
-	public GameObject playerPrefab; // Prefab của nhân vật
-	public CinemachineVirtualCamera virtualCamera; // Tham chiếu đến Cinemachine Virtual Camera
+    public GameObject[] playerPrefabs; // Mảng chứa các nhân vật có thể chọn
+    private int selectedCharacterIndex; // Lưu index nhân vật đã chọn
+    public CinemachineVirtualCamera virtualCamera; // Tham chiếu đến Cinemachine Virtual Camera
 	public GameObject mapBoundsPrefab; // Prefab chứa collider giới hạn map
 
 	public GameObject[] enemyPrefabs;
@@ -33,8 +34,9 @@ public class RenderMap : MonoBehaviour
 	void Start()
 	{
 		int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+        selectedCharacterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
 
-		InitializeMap(currentLevel);
+        InitializeMap(currentLevel);
 
 		// Các phần còn lại giữ nguyên
 		CreateMapBounds();
@@ -284,9 +286,10 @@ public class RenderMap : MonoBehaviour
 			isValidPosition = !IsNearWall(playerPosition.x, playerPosition.y); // Đảm bảo nhân vật không bị đặt sát tường
 		} while (!isValidPosition);
 
-		// Đặt nhân vật tại vị trí ngẫu nhiên
-		Vector3 spawnPosition = tilePathMap.GetCellCenterWorld(new Vector3Int(playerPosition.x, playerPosition.y, 0));
-		playerInstance = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
+        // Đặt nhân vật tại vị trí ngẫu nhiên
+        GameObject selectedPlayerPrefab = playerPrefabs[selectedCharacterIndex];
+        Vector3 spawnPosition = tilePathMap.GetCellCenterWorld(new Vector3Int(playerPosition.x, playerPosition.y, 0));
+		playerInstance = Instantiate(selectedPlayerPrefab, spawnPosition, Quaternion.identity);
 		playerInstance.SetActive(true);
 	}
 
