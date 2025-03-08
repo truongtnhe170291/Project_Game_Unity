@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - wall
+  - Exit
+  - Trap
+  - EnemyCanShoot
+  - EnemyCanNotShoot
   - Enemy
   layers:
   - Default
@@ -54,4 +58,7 @@ TagManager:
     locked: 0
   - name: 3
     uniqueID: 2109624561
+    locked: 0
+  - name: Panel
+    uniqueID: 635500289
     locked: 0

@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: -3124149765146503885}
   m_Layer: 0
   m_Name: EnemyCanShoot
-  m_TagString: Enemy
+  m_TagString: EnemyCanShoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

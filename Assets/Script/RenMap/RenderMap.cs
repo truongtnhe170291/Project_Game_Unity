@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 using Cinemachine;
 using Assets.Helper;
+using System.IO;
 
 public class RenderMap : MonoBehaviour
 {
@@ -30,17 +29,24 @@ public class RenderMap : MonoBehaviour
 	public AStarGridGenerator aStarPrefab;
 	private AStarGridGenerator activeAStarGrid;
 
+	private int currentLevel;
+
 	void Start()
 	{
-		int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+		string isContinue = PlayerPrefs.GetString(PlayerPrefsHelper.IsContinue);
+		currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
 
-		InitializeMap(currentLevel);
+		if (string.IsNullOrEmpty(isContinue))
+		{
 
-		// Các phần còn lại giữ nguyên
-		CreateMapBounds();
-		CreateAStarGrid();
+			InitializeMap(currentLevel);
 
-		// ... (các thành phần khác)
+			CreateMapBounds();
+			CreateAStarGrid();
+		}
+		else
+			LoadMapState();
+		PlayerPrefs.DeleteKey(PlayerPrefsHelper.IsContinue);
 	}
 
 	public void InitializeMap(int level)
@@ -66,20 +72,6 @@ public class RenderMap : MonoBehaviour
 		{
 			Debug.LogError("Player instance or virtual camera is missing!");
 		}
-	}
-
-
-	public void ClearMap()
-	{
-		tilemap.ClearAllTiles();
-		tilePathMap.ClearAllTiles();
-
-		// Xóa traps và exit
-		var traps = GameObject.FindGameObjectsWithTag("Trap");
-		foreach (var trap in traps) Destroy(trap);
-
-		var exits = GameObject.FindGameObjectsWithTag("Exit");
-		foreach (var exit in exits) Destroy(exit);
 	}
 
 	public Vector2Int GetRandomPathPosition()
@@ -396,5 +388,97 @@ public class RenderMap : MonoBehaviour
 
 		activeAStarGrid = Instantiate(aStarPrefab, transform);
 		activeAStarGrid.InitializeGrid(maze, width, height);
+	}
+	private void OnApplicationQuit()
+	{
+		SaveMap();
+	}
+
+	public void SaveMap()
+	{
+		GameObject[] exit = GameObject.FindGameObjectsWithTag("Exit");
+		var exitVetor3 = exit[0].transform.position;
+		Vector3Int exitVetor3Int = tilePathMap.WorldToCell(exitVetor3);
+		FindObjectOfType<MapManager>().SaveMapState(width, height, maze, playerInstance, new Vector2Int(exitVetor3Int.x, exitVetor3Int.y), currentLevel);
+	}
+	public void ClearMap()
+	{
+		tilemap.ClearAllTiles();
+		tilePathMap.ClearAllTiles();
+
+		var traps = GameObject.FindGameObjectsWithTag("Trap");
+		foreach (var trap in traps)
+		{
+			Destroy(trap.gameObject);
+		}
+
+		var exits = GameObject.FindGameObjectsWithTag("Exit");
+		foreach (var exit in exits)
+		{
+			Destroy(exit.gameObject);
+		}
+
+		var enemiesCanShoot = GameObject.FindGameObjectsWithTag(EnemyType.EnemyCanShoot);
+		foreach (var enemy in enemiesCanShoot)
+		{
+			Destroy(enemy.gameObject);
+		}
+
+		var enemiesCanNotShoot = GameObject.FindGameObjectsWithTag(EnemyType.EnemyCanNotShoot);
+		foreach (var enemy in enemiesCanNotShoot)
+		{
+			Destroy(enemy.gameObject);
+		}
+
+		if (playerInstance != null)
+		{
+			Destroy(playerInstance);
+		}
+	}
+
+	public void LoadMapState()
+	{
+		string path = Path.Combine(Application.persistentDataPath, $"map_{currentLevel}_save.json");
+		if (File.Exists(path))
+		{
+			try
+			{
+				string json = File.ReadAllText(path);
+				MapSaveData saveData = JsonUtility.FromJson<MapSaveData>(json);
+
+				maze = ConvertArray.Convert1DTo2D(saveData.maze, saveData.width, saveData.height);
+				width = saveData.width;
+				height = saveData.height;
+				exitPosition = saveData.exitPosition;
+
+				ClearMap();
+				RenderMaze();
+
+				playerInstance = Instantiate(playerPrefab, saveData.playerPosition, Quaternion.identity);
+
+				foreach (var enemyData in saveData.enemies)
+				{
+					var enemyPrefab = enemyPrefabs[enemyData.enemyType];
+					var enemy = Instantiate(enemyPrefab, enemyData.position, Quaternion.identity);
+				}
+
+				CreateMapBounds();
+				CreateAStarGrid();
+
+				if (virtualCamera != null)
+				{
+					virtualCamera.Follow = playerInstance.transform;
+				}
+			}
+			catch (System.Exception e)
+			{
+				Debug.LogError("Error loading map state: " + e.Message);
+				InitializeMap(PlayerPrefs.GetInt("CurrentLevel", 1));
+			}
+		}
+		else
+		{
+			InitializeMap(PlayerPrefs.GetInt("CurrentLevel", 1));
+		}
 	}
 }

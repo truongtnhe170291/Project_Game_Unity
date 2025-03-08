@@ -18,6 +18,7 @@ public class Welcome : MonoBehaviour
     private void Start()
     {
         newGameButton.onClick.AddListener(() => OnNewGameButtonClicked());
+		continueButton.onClick.AddListener(() => OnContinueButtonClicked());
     }
 
     private void OnNewGameButtonClicked()
@@ -26,4 +27,11 @@ public class Welcome : MonoBehaviour
         PlayerPrefs.SetString("NextScene", "SelectMap");
         SceneManager.LoadScene("LoadScene");
     }
+
+	private void OnContinueButtonClicked()
+	{
+        DoorData.StatusDoors = DoorData.GetListDoorInJsonFile();
+		PlayerPrefs.SetString("NextScene", "SelectMap");
+		SceneManager.LoadScene("LoadScene");
+	}
 }

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Assets.Helper;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class LevelManager : MonoBehaviour
 {
@@ -97,9 +98,15 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log($"Click level: {levelNumber}");
         PlayerPrefs.SetInt("levelNumber", levelNumber);
+		string path = Path.Combine(Application.persistentDataPath, $"map_{levelNumber}_save.json");
+		if (!File.Exists(path))
+        {
+			GameManager.Instance.StartLevel(levelNumber);
+            return;
+		}
         if (DoorData.StatusDoors[levelNumber-1] != -1)  // Biến bool kiểm tra trạng thái khóa của màn chơi
         {
-            FindObjectOfType<PopupController>().ShowPopup();
+            FindObjectOfType<PopupConfirmSelectMapController>().ShowPopup();
         }
         else
         {
@@ -120,28 +127,6 @@ public class LevelManager : MonoBehaviour
     {
         return PlayerPrefs.GetInt($"Level_{levelNumber}_Stars", 0);
     }
-
-    // Gọi hàm này khi người chơi hoàn thành level
-    //public void OnLevelComplete(int levelNumber, int starsEarned)
-    //{
-    //    // Lưu số sao đạt được
-    //    PlayerPrefs.SetInt($"Level_{levelNumber}_Stars", starsEarned);
-
-    //    // Mở khóa level tiếp theo
-    //    if (levelNumber < levelButtons.Length)
-    //    {
-    //        PlayerPrefs.SetInt($"Level_{levelNumber + 1}_Unlocked", 1);
-    //    }
-
-    //    PlayerPrefs.Save();
-
-    //    // Cập nhật lại visual của các button
-    //    int nextLevel = levelNumber + 1;
-    //    if (nextLevel <= levelButtons.Length)
-    //    {
-    //        UpdateButtonVisual(levelButtons[nextLevel - 1], true, 0);
-    //    }
-    //}
 
     // Reset tất cả tiến độ (dùng cho testing)
     public void ResetAllProgress()
