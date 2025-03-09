@@ -101,7 +101,8 @@ public class LevelManager : MonoBehaviour
 		string path = Path.Combine(Application.persistentDataPath, $"map_{levelNumber}_save.json");
 		if (!File.Exists(path))
         {
-			GameManager.Instance.StartLevel(levelNumber);
+            PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "CharacterSelectionScene");
+            SceneManager.LoadScene("LoadScene");
             return;
 		}
         if (DoorData.StatusDoors[levelNumber-1] != -1)  // Biến bool kiểm tra trạng thái khóa của màn chơi

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Helper;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -57,10 +58,9 @@ public class CharacterSelection : MonoBehaviour
     void SelectCharacter()
     {
         // Lưu nhân vật đã chọn vào PlayerPrefs
-        PlayerPrefs.SetInt("SelectedCharacter", currentCharacterIndex);
+        PlayerPrefs.SetInt(PlayerPrefsHelper.SelectSkin, currentCharacterIndex);
         PlayerPrefs.Save();
-
-        PlayerPrefs.SetString("NextScene", "SelectMap");
-        SceneManager.LoadScene("LoadScene");
+        int levelNumber = PlayerPrefs.GetInt("levelNumber");
+        GameManager.Instance.StartLevel(levelNumber);
     }
 }

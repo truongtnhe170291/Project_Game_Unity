@@ -38,7 +38,7 @@ public class MapManager : MonoBehaviour
 
 	public void LoadScene(string nextScene)
 	{
-		PlayerPrefs.SetString("NextScene", nextScene);
+		PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, nextScene);
 		SceneManager.LoadScene("LoadScene");
 	}
 
@@ -56,9 +56,9 @@ public class MapManager : MonoBehaviour
         };
     }
 
-	public void SaveMapState(int width, int height, int[,] maze, GameObject playerInstance, Vector2Int exitPosition, int currentMap)
+	public void SaveMapState(int width, int height, int[,] maze, GameObject playerInstance, Vector2Int exitPosition, int currentMap, List<Vector2Int> chestPositions)
 	{
- 
+
 		MapSaveData saveData = new MapSaveData
 		{
 			width = width,
@@ -67,7 +67,8 @@ public class MapManager : MonoBehaviour
 			playerPosition = playerInstance.transform.position,
 			exitPosition = exitPosition,
 			enemies = new List<EnemySaveData>(),
-            traps = new List<TrapSaveData>()
+			traps = new List<TrapSaveData>(),
+			chestPositions = chestPositions
 		};
 
 		var enemiesCanShoot = GameObject.FindGameObjectsWithTag(EnemyType.EnemyCanShoot);

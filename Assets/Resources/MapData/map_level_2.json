@@ -2,10 +2,12 @@
     "level": 2,
     "width": 30,
     "height": 30,
-    "steps": 700,
+    "steps": 800,
     "trapCount": 5,
     "enemyCounts": [
-        2,
-        2
-    ]
+        3,
+        3
+    ],
+    "chestCount": 4,
+    "levelEnemy": 2
 }

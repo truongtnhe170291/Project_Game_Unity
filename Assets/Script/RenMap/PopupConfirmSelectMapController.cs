@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI; // Dùng nếu không dùng TextMeshPro
 using TMPro;
-using Assets.Helper;         // Dùng nếu sử dụng TextMeshPro
+using Assets.Helper;
+using UnityEngine.SceneManagement;         // Dùng nếu sử dụng TextMeshPro
 
 public class PopupConfirmSelectMapController : MonoBehaviour
 {
@@ -32,7 +33,8 @@ public class PopupConfirmSelectMapController : MonoBehaviour
         popupPanel.SetActive(false);
         Time.timeScale = 1f;  // Tiếp tục game
         int levelNumber = PlayerPrefs.GetInt("levelNumber");
-        GameManager.Instance.StartLevel(levelNumber);
+        PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "CharacterSelectionScene");
+        SceneManager.LoadScene("LoadScene");
     }
 
 	private void OnContinueButtonClicked()
@@ -41,8 +43,10 @@ public class PopupConfirmSelectMapController : MonoBehaviour
         PlayerPrefs.SetString(PlayerPrefsHelper.IsContinue, "True");
 		popupPanel.SetActive(false);
 		Time.timeScale = 1f;  // Tiếp tục game
-		int levelNumber = PlayerPrefs.GetInt("levelNumber");
-		GameManager.Instance.StartLevel(levelNumber);
+		
+        PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "CharacterSelectionScene");
+        SceneManager.LoadScene("LoadScene");
+        //GameManager.Instance.StartLevel(levelNumber);
 	}
 
 	private void OnNoButtonClicked()

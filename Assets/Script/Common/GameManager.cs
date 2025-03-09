@@ -1,4 +1,5 @@
 ﻿// GameManager.cs
+using Assets.Helper;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,8 +28,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"Load level: {level}");
         currentLevel = level;
-        PlayerPrefs.SetInt("CurrentLevel", level);
-        PlayerPrefs.SetString("NextScene", "DemoRenMap");
+        PlayerPrefs.SetInt(PlayerPrefsHelper.CurrentLevel, level);
+        PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "DemoRenMap");
         SceneManager.LoadScene("LoadScene");
     }
 

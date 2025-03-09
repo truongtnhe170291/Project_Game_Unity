@@ -24,14 +24,14 @@ public class Welcome : MonoBehaviour
     private void OnNewGameButtonClicked()
     {
         DoorData.StatusDoors = new List<int>() { 0, -1, -1, -1, -1, -1, -1, -1, -1 };
-        PlayerPrefs.SetString("NextScene", "SelectMap");
+        PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "SelectMap");
         SceneManager.LoadScene("LoadScene");
     }
 
 	private void OnContinueButtonClicked()
 	{
         DoorData.StatusDoors = DoorData.GetListDoorInJsonFile();
-		PlayerPrefs.SetString("NextScene", "SelectMap");
+		PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "SelectMap");
 		SceneManager.LoadScene("LoadScene");
 	}
 }

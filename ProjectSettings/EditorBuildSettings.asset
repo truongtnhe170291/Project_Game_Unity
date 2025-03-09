@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Welcome Scene.unity
     guid: 310a3dc84a0ec224ba50796d7e114b52
+  - enabled: 1
+    path: Assets/Scenes/CharacterSelectionScene.unity
+    guid: 276e245f020e85a4d9c7cf1b90483517
   m_configObjects: {}

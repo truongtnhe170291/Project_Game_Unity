@@ -23,6 +23,8 @@ public class MapDataEditor : EditorWindow
         mapData.height = EditorGUILayout.IntField("Height", mapData.height);
         mapData.steps = EditorGUILayout.IntField("Steps", mapData.steps);
         mapData.trapCount = EditorGUILayout.IntField("Trap Count", mapData.trapCount);
+        mapData.chestCount = EditorGUILayout.IntField("Chest Count", mapData.chestCount);
+        mapData.levelEnemy = EditorGUILayout.IntField("Level Enemy", mapData.levelEnemy);
 
         // Setup cho mảng enemyCounts
         int currentArraySize = (mapData.enemyCounts != null) ? mapData.enemyCounts.Length : 0;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Helper;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +16,7 @@ public class LoadScene : MonoBehaviour
 
     private IEnumerator LoadNextSceneAsync()
     {
-        string nextSceneName = PlayerPrefs.GetString("NextScene");
+        string nextSceneName = PlayerPrefs.GetString(PlayerPrefsHelper.NextScene);
         Debug.Log($"Load Scene: {nextSceneName}");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
 
@@ -36,7 +37,7 @@ public class LoadScene : MonoBehaviour
             if (asyncLoad.progress >= 0.9f)
             {
                 asyncLoad.allowSceneActivation = true;
-                PlayerPrefs.DeleteKey("NextScene");
+                PlayerPrefs.DeleteKey(PlayerPrefsHelper.NextScene);
             }
 
             yield return null;

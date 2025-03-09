@@ -13,6 +13,7 @@ namespace Assets.Helper
 		public Vector2Int exitPosition;
 		public List<EnemySaveData> enemies;
 		public List<TrapSaveData> traps;
+		public List<Vector2Int> chestPositions;
 
 		[System.Serializable]
 		public class EnemySaveData

@@ -53,6 +53,9 @@ TagManager:
   - name: Trap
     uniqueID: 3935982197
     locked: 0
+  - name: Chest
+    uniqueID: 2871832469
+    locked: 0
   - name: Player
     uniqueID: 2690250675
     locked: 0

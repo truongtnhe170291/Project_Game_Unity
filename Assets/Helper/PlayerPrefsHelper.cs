@@ -11,5 +11,6 @@ namespace Assets.Helper
 		public static string IsContinue = "IsContinue";
 		public static string CurrentLevel = "CurrentLevel";
         public static string SelectSkin = "SelectSkin";
+        public static string NextScene = "NextScene";
     }
 }

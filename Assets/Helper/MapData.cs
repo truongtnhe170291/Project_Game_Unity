@@ -9,6 +9,7 @@ public class MapData
     public int height;
     public int steps;
     public int trapCount;
-    public int[] enemyCounts; // Số lượng quái vật theo loại
-    // Thêm các trường dữ liệu khác tùy ý
+    public int[] enemyCounts; 
+    public int chestCount;
+    public int levelEnemy;
 }

@@ -13,8 +13,8 @@ public class TriggerScript : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerPrefs.SetString("NextScene", nextSceneName);
-            int currentLevel = PlayerPrefs.GetInt("CurrentLevel");
+            PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, nextSceneName);
+            int currentLevel = PlayerPrefs.GetInt(PlayerPrefsHelper.CurrentLevel);
             DoorData.StatusDoors[currentLevel - 1] = 3;
             if(currentLevel < DoorData.StatusDoors.Count)
                 DoorData.StatusDoors[currentLevel] = 0;

@@ -7,5 +7,7 @@
     "enemyCounts": [
         2,
         1
-    ]
+    ],
+    "chestCount": 2,
+    "levelEnemy": 1
 }

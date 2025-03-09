@@ -57,7 +57,7 @@ public class PopupStopGameController : MonoBehaviour
 	{
 		RenderMap renderMap = FindObjectOfType<RenderMap>();
 		renderMap.SaveMap();
-		PlayerPrefs.SetString("NextScene", "SelectMap");
+		PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "SelectMap");
 		SceneManager.LoadScene("LoadScene");
 	}
 
@@ -65,7 +65,7 @@ public class PopupStopGameController : MonoBehaviour
 	{
 		RenderMap renderMap = FindObjectOfType<RenderMap>();
 		renderMap.SaveMap();
-		PlayerPrefs.SetString("NextScene", "SelectMap");
+		PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "SelectMap");
 		SceneManager.LoadScene("LoadScene");
 	}
 
