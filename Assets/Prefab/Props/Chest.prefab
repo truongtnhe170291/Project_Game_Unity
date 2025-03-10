@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loots:
-  - itemPrefab: {fileID: 2360075861152060428, guid: 0a9b3b9938fe90d479b628ed12bcbfa0, type: 3}
-    dropChance: 0.5
-  - itemPrefab: {fileID: 8193410510875309158, guid: c6d86ec8825b7674a9736d1cb0cd98a2, type: 3}
-    dropChance: 0.5
+  - itemPrefab: {fileID: 1954627578700332, guid: c2551413c5ef80840a0a04a9177bb3a2, type: 3}
+    dropChance: 0.6
+  - itemPrefab: {fileID: 1962494962737066, guid: 8631987f98aa6e2499e540aa1cff12c4, type: 3}
+    dropChance: 0.4
