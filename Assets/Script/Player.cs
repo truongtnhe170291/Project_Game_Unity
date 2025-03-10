@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer characterSR;
     Animator animator;
 
-    public float dashBoost = 2f;
+    //public float dashBoost = 2f;
     //private float dashTime;
     //public float DashTime;
     //private bool once;
