@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reductions:
   - statType: health
-    statValue: 10
+    statValue: 0
   boosts: []
   nonDestructive: 0
   interval: 2
