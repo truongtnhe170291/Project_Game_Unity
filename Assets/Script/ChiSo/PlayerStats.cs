@@ -145,7 +145,9 @@ public class PlayerStats : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            GameOverManager gameOverManager = FindObjectOfType<GameOverManager>();
+            gameOverManager.ShowGameOverScreen();
+            gameObject.SetActive(false);
         }
     }
 
