@@ -9,10 +9,14 @@ public class EnemyStats : MonoBehaviour
     public int defense = 0;
     public int moveSpeed = 4;
 
+    public PlayerStats playerStats;
+
     private string filePath;
 
     void Start()
     {
+        playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
+
         currentHealth = maxHealth;
         ConfigPathForEnemyData();
         LoadEnemyData();
@@ -54,6 +58,7 @@ public class EnemyStats : MonoBehaviour
         switch (stat)
         {
             case "health":
+                value = playerStats.attack;
                 int actualDamage = Mathf.Max(value - defense, 0); // Giáp giảm sát thương, không âm máu
                 currentHealth = Mathf.Max(0, currentHealth - actualDamage);
                 if (currentHealth <= 0)

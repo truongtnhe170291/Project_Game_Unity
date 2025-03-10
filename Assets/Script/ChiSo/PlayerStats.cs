@@ -14,7 +14,8 @@ public class PlayerStats : MonoBehaviour
 
     public TextBar healthBar;
     public TextBar levelText;
-    public CharacterMove playerMove;
+    public Player playerMove;
+    public EnemyStats enemyStats;
 
     private string filePath;
 
@@ -22,6 +23,8 @@ public class PlayerStats : MonoBehaviour
     {
         healthBar = GameObject.Find("HealthBar").GetComponent<TextBar>();
 
+        playerMove = GameObject.FindWithTag("Player").GetComponent<Player>();
+        enemyStats = GameObject.FindWithTag("EnemyCanShoot").GetComponent<EnemyStats>();
         // Tìm ExpBar bằng tên
         levelText = GameObject.Find("ExpBar").GetComponent<TextBar>();
 
@@ -119,6 +122,7 @@ public class PlayerStats : MonoBehaviour
                 CheckDeath();
                 break;
             case "health":
+                value = enemyStats.attack;
                 int actualDamage = Mathf.Max(value - defense, 0); // Giáp giảm sát thương, không âm máu
                 currentHealth = Mathf.Max(0, currentHealth - actualDamage);
                 UpdateHealthBar();
