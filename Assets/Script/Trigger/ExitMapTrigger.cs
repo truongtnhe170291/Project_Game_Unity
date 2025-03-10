@@ -15,11 +15,13 @@ public class TriggerScript : MonoBehaviour
         {
             PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, nextSceneName);
             int currentLevel = PlayerPrefs.GetInt(PlayerPrefsHelper.CurrentLevel);
-            DoorData.StatusDoors[currentLevel - 1] = 3;
-            if(currentLevel < DoorData.StatusDoors.Count)
-                DoorData.StatusDoors[currentLevel] = 0;
+			if (currentLevel < DoorData.StatusDoors.Count)
+				DoorData.StatusDoors[currentLevel - 1] = 3;
 
-            DoorData.UpdateListDoorInJsonFile(DoorData.StatusDoors);
+			if(currentLevel < DoorData.StatusDoors.Count - 1)
+				DoorData.StatusDoors[currentLevel] = 0;
+
+			DoorData.UpdateListDoorInJsonFile(DoorData.StatusDoors);
 			//DoorData.StatusDoors[DoorData.DoorId - 1] = 1;
 
 			// kiểm tra xem hoàn thành nhiệm vụ đủ 3s chưa. nếu hoàn thành thì xóa file json lưu data map này

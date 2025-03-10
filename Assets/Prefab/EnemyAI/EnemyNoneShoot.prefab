@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roaming: 0
-  moveSpeed: 5
+  moveSpeed: 1
   nextWPDistance: 0.2
   isShootabte: 1
   bullet: {fileID: 0}

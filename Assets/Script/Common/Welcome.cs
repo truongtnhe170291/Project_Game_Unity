@@ -31,6 +31,7 @@ public class Welcome : MonoBehaviour
 	private void OnContinueButtonClicked()
 	{
         DoorData.StatusDoors = DoorData.GetListDoorInJsonFile();
+        Debug.Log("StatusDoors: " + string.Join(", ", DoorData.StatusDoors));
 		PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, "SelectMap");
 		SceneManager.LoadScene("LoadScene");
 	}
