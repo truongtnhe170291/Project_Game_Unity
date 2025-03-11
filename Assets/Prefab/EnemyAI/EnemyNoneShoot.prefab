@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roaming: 0
-  moveSpeed: 1
+  moveSpeed: 4
   nextWPDistance: 0.2
   isShootabte: 1
   bullet: {fileID: 0}
@@ -286,6 +286,7 @@ MonoBehaviour:
   attack: 10
   defense: 0
   moveSpeed: 4
+  playerStats: {fileID: 0}
 --- !u!114 &-4511926192608971580
 MonoBehaviour:
   m_ObjectHideFlags: 0
