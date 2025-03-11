@@ -17,7 +17,6 @@ public class RenderMap : MonoBehaviour
     public GameObject exitPrefab; // Prefab cho cổng ra (thay thế exitTile)
     public int trapCount; // Số lượng bẫy
     public GameObject[] playerPrefabs; // Mảng chứa các nhân vật có thể chọn
-    private int selectedCharacterIndex; // Lưu index nhân vật đã chọn
     public CinemachineVirtualCamera virtualCamera; // Tham chiếu đến Cinemachine Virtual Camera
     public GameObject mapBoundsPrefab; // Prefab chứa collider giới hạn map
     public GameObject chestPrefab; // Prefab cho rương
@@ -41,7 +40,6 @@ public class RenderMap : MonoBehaviour
 
         string isContinue = PlayerPrefs.GetString(PlayerPrefsHelper.IsContinue);
         currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
-        selectedCharacterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
 
         if (string.IsNullOrEmpty(isContinue))
         {
@@ -286,7 +284,7 @@ public class RenderMap : MonoBehaviour
         } while (!isValidPosition);
 
         // Đặt nhân vật tại vị trí ngẫu nhiên
-        GameObject selectedPlayerPrefab = playerPrefabs[selectedCharacterIndex];
+        GameObject selectedPlayerPrefab = playerPrefabs[selectSkin];
         Vector3 spawnPosition = tilePathMap.GetCellCenterWorld(new Vector3Int(playerPosition.x, playerPosition.y, 0));
         playerInstance = Instantiate(selectedPlayerPrefab, spawnPosition, Quaternion.identity);
         playerInstance.SetActive(true);
@@ -477,7 +475,6 @@ public class RenderMap : MonoBehaviour
                 RenderMaze();
 
                 playerInstance = Instantiate(playerPrefabs[selectSkin], saveData.playerPosition, Quaternion.identity);
-
                 foreach (var enemyData in saveData.enemies)
                 {
                     var enemyPrefab = enemyPrefabs[enemyData.enemyType];

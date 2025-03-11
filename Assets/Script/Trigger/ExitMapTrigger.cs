@@ -11,6 +11,9 @@ public class TriggerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+		var enemies1 = GameObject.FindGameObjectsWithTag("EnemyCanShoot");
+		var enemies2 = GameObject.FindGameObjectsWithTag("EnemyCanNotShoot");
+		if (enemies1.Length > 0 || enemies2.Length > 0) return;
         if (collision.CompareTag("Player"))
         {
             PlayerPrefs.SetString(PlayerPrefsHelper.NextScene, nextSceneName);
