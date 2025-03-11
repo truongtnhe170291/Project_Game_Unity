@@ -22,6 +22,7 @@ public class RenderMap : MonoBehaviour
     public GameObject mapBoundsPrefab; // Prefab chứa collider giới hạn map
     public GameObject chestPrefab; // Prefab cho rương
     public int chestCount = 4;
+    public int levelEnemy = 0;
     public GameObject[] enemyPrefabs;
 
     private int[,] maze;
@@ -64,6 +65,7 @@ public class RenderMap : MonoBehaviour
         height = MapManager.Instance.currentMapData.height;
         trapCount = MapManager.Instance.currentMapData.trapCount;
         chestCount = MapManager.Instance.currentMapData.chestCount;
+        levelEnemy = MapManager.Instance.currentMapData.levelEnemy;
         // Khởi tạo các thành phần map
         maze = new int[width, height];
         GenerateMaze();
@@ -472,6 +474,8 @@ public class RenderMap : MonoBehaviour
                 width = saveData.width;
                 height = saveData.height;
                 exitPosition = saveData.exitPosition;
+
+                levelEnemy = saveData.levelEnemy;
 
                 ClearMap();
                 RenderMaze();

@@ -1,6 +1,6 @@
 {
     "maxHealth": 25,
-    "attack": 5,
+    "attack": 20,
     "defense": 0,
     "moveSpeed": 2
 }
