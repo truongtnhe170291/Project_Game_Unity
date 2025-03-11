@@ -37,7 +37,10 @@ public class NewEnemtAI : MonoBehaviour
             fireCooldown = timeBtwFire;
             if (bullet != null && isShootabte)
             {
-                EnemyFireBullet();
+                if (FindAnyObjectByType<Player>() != null)
+                {
+                    EnemyFireBullet();
+                }
             }
         }
     }
@@ -100,7 +103,14 @@ public class NewEnemtAI : MonoBehaviour
 
     Vector2 FindTarget()
     {
-        Vector3 playerPos = FindAnyObjectByType<Player>().transform.position;
+        Player player = FindAnyObjectByType<Player>();
+
+        if (player == null)
+        {
+            return transform.position; // Trả về vị trí hiện tại
+        }
+
+        Vector3 playerPos = player.transform.position;
         if (roaming == true)
         {
             Vector2 randomDirection;
